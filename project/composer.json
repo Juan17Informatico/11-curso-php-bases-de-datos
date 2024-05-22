@@ -1,0 +1,18 @@
+{
+    "name": "webmaster/project",
+    "description": "Proyecto de curso de conexión de php con bases de datos",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "JuanCM",
+            "email": "juancampuzano2356@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Database\\": "database/"
+        }
+    },
+    "require": {}
+}
