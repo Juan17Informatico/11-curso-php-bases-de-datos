@@ -6,12 +6,15 @@ use mysqli;
 
 class Connection
 {
-    
+    protected $server = "localhost";
+    protected $database = "finanzas_personales";
+    protected $username = "root";
+    protected $password = "";   
     private static $instance;
     private $connection; 
 
     private function __construct(){
-        $this->make_connection();
+        $this->get_database_instance();
     }
 
     public static function getInstance(){
@@ -26,13 +29,10 @@ class Connection
     }
 
     private function make_connection(){
-        $server = "localhost";
-        $database = "finanzas_personales";
-        $username = "root";
-        $password = "";
+
 
         //Orientada a objetos
-        $mysqli = new mysqli($server, $username, $password, $database);
+        $mysqli = new mysqli($this->server, $this->username, $this->password, $this->database);
 
         // Comprobar conexión de manera orientada a objetos
         if ($mysqli->connect_errno)
@@ -45,6 +45,12 @@ class Connection
         $this->connection = $mysqli; 
     }
 }
+
+$connect = new Connection();
+
+$connect->getInstance();
+
+var_dump($connect); 
 
 // Esta es la forma procedural 
 // $mysqli = mysqli_connect($server, $username, $password, $database);
