@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Controllers;
 
@@ -15,46 +15,51 @@ use Database\MySQLi\Connection;
  * destroy: elimina un recurso.
  */
 
-class IncomesController{
+class IncomesController
+{
 
-    public function index() {
-
+    public function index()
+    {
     }
 
-    public function create() {
-
+    public function create()
+    {
     }
 
-    public function store($data) {
+    public function store($data){
 
         $connection = Connection::getInstance()->get_database_instance();
 
-        $connection->query("INSERT INTO incomes (payment_method, type, date, amount, description) VALUES(
-            {$data['payment_method']},
-            {$data['type']},
-            '{$data['date']}',
-            {$data['amount']},
-            '{$data['description']}'
-            );");
+        $stmt = $connection->prepare(
+            "INSERT INTO incomes (payment_method, type, date, amount, description) 
+                VALUES( ?, ?, ?, ?, ?);");
 
+        $stmt->bind_param( "iisds", $payment_method, $type, $date, $amount, $description );
+        
+        $payment_method = $data['payment_method'];
+        $type = $data['type'];
+        $date = $data['date'];
+        $amount = $data['amount'];
+        $description = $data['description'];
+
+        $stmt->execute();
+
+        echo "Se han insertado {$stmt->affected_rows} filas en la base de datos"; 
     }
 
-    public function show() {
-
+    public function show()
+    {
     }
 
-    public function edit() {
-
+    public function edit()
+    {
     }
 
-    public function update() {
-
+    public function update()
+    {
     }
 
-    public function destroy() {
-
+    public function destroy()
+    {
     }
-
-
 }
-
