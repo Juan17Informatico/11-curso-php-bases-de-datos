@@ -1,6 +1,8 @@
 <?php 
 
-namespace App\Controllers; 
+namespace App\Controllers;
+
+use Database\PDO\Connection;
 
 /**
  * Los 7 métodos que suelen tener los controladores:
@@ -23,7 +25,15 @@ class WithdrawalsController{
 
     }
 
-    public function store() {
+    public function store($data) {
+
+        $connection = Connection::getInstance()->get_database_instance(); 
+
+        $stmt = $connection->prepare("INSERT INTO withdrawals (payment_method, type, date, amount, description) 
+        VALUES ( :payment_method, :type, :date, :amount, :description )"); 
+
+        $stmt->execute($data); 
+
 
     }
 
