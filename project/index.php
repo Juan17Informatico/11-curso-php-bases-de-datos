@@ -23,9 +23,9 @@ require("vendor/autoload.php");
 $withdrawal_controller = new WithdrawalsController();
 $withdrawal_controller->store([
     // "payment_method" => PaymentMethodEnum::CreditCard->value,
-    ":payment_method" => 1,
-    ":type" => 2,
-    ":date" => date("Y-m-d H:i:s"),
-    ":amount" => 10,
-    ":description" => "Compré mucha comida para mis queridos y amados michis."
+    "payment_method" => 1,
+    "type" => 2,
+    "date" => date("Y-m-d H:i:s"),
+    "amount" => 50,
+    "description" => "Compré juguetes para mis queridos y amados michis."
 ]);
