@@ -20,12 +20,21 @@ require("vendor/autoload.php");
 //     "description" => "Pago de mi salario por mi arduo trabajo"
 // ]);
 
+// $withdrawal_controller = new WithdrawalsController();
+// $withdrawal_controller->store([
+//     // "payment_method" => PaymentMethodEnum::CreditCard->value,
+//     "payment_method" => 1,
+//     "type" => 2,
+//     "date" => date("Y-m-d H:i:s"),
+//     "amount" => 50,
+//     "description" => "Compré juguetes para mis queridos y amados michis."
+// ]);
+
+// $withdrawal_controller = new WithdrawalsController();
+// $withdrawal_controller->index();
+
 $withdrawal_controller = new WithdrawalsController();
-$withdrawal_controller->store([
-    // "payment_method" => PaymentMethodEnum::CreditCard->value,
-    "payment_method" => 1,
-    "type" => 2,
-    "date" => date("Y-m-d H:i:s"),
-    "amount" => 50,
-    "description" => "Compré juguetes para mis queridos y amados michis."
-]);
+$withdrawal_controller->show(1);
+
+// $incomes_controller = new IncomesController();
+// $incomes_controller->index();
