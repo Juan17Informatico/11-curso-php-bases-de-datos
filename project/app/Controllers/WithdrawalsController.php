@@ -88,11 +88,33 @@ class WithdrawalsController
     {
     }
 
-    public function update()
-    {
-    }
+    public function update($data){
+        $stmt = $this->connection->
+            prepare("UPDATE withdrawals SET 
+            payment_method = :payment_method,
+            type = :type, 
+            date = :date, 
+            amount = :amount, 
+            description = :description 
+            WHERE id = :id "); 
 
-    public function destroy()
-    {
+        $stmt->bindValue(":id", $data["id"]); 
+        $stmt->bindValue(":payment_method", $data["payment_method"]);
+        $stmt->bindValue(":type", $data["type"]);
+        $stmt->bindValue(":date", $data["date"]);
+        $stmt->bindValue(":amount", $data["amount"]);
+        $stmt->bindValue(":description", $data["description"]);
+
+        $stmt->execute($data);
+
+    }   
+
+    public function destroy($id){
+
+        $stmt = $this->connection->prepare("DELETE FROM withdrawals WHERE id = :id");
+        $stmt->execute([
+            ":id" => $id
+        ]);
+
     }
 }

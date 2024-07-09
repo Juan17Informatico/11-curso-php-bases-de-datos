@@ -30,15 +30,16 @@ class IncomesController
         $stmt = $this->connection->prepare("SELECT * FROM incomes");
         $stmt->execute();
 
+        $stmt->bindColumn("amount", $amount);
+        $stmt->bindColumn("description", $description);
+
         while($row = $stmt->fetch()){
-            echo "Ganaste " . $row["amount"] . " USD en: " . $row 
-                ["description"] . "\n"; 
+            echo "Ganaste " . $amount . " USD en: " . $description . "\n"; 
         }
 
     }
 
-    public function create()
-    {
+    public function create(){
     }
 
     public function store($data){
@@ -55,19 +56,48 @@ class IncomesController
         $stmt->execute($data);
     }
 
-    public function show()
-    {
+    public function show($id){
+        $stmt = $this->connection->prepare("SELECT * FROM incomes WHERE id=:id"); 
+
+        $stmt->execute([
+            ":id"=> $id, 
+        ]);
+
+        // echo "El registro con id $id dice que te gastaste {$result['amount']} USD en {$result['description']}"; 
     }
 
     public function edit()
     {
     }
 
-    public function update()
-    {
+    public function update($data){
+        $stmt = $this->connection->
+            prepare("UPDATE incomes SET 
+                payment_method = :payment_method,
+                type = :type, 
+                date = :date, 
+                amount = :amount, 
+                description = :description 
+                WHERE id = :id "); 
+
+        $stmt->bindValue(":id", $data["id"]); 
+        $stmt->bindValue(":payment_method", $data["payment_method"]);
+        $stmt->bindValue(":type", $data["type"]);
+        $stmt->bindValue(":date", $data["date"]);
+        $stmt->bindValue(":amount", $data["amount"]);
+        $stmt->bindValue(":description", $data["description"]);
+
+        $stmt->execute($data);
     }
 
-    public function destroy()
-    {
+    public function destroy($id){
+        
+        // $this->connection->exec("DROP TABLE incomes_test"); 
+        $stmt = $this->connection->prepare("DELETE FROM incomes WHERE id = :id");
+        $stmt->execute([
+            ":id" => $id
+        ]);
+
+
     }
 }
