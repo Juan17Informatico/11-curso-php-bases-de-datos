@@ -30,21 +30,21 @@ class IncomesController
         $stmt = $this->connection->prepare("SELECT * FROM incomes");
         $stmt->execute();
 
-        $stmt->bindColumn("amount", $amount);
-        $stmt->bindColumn("description", $description);
+        $results = $stmt->fetchAll();
 
-        while($row = $stmt->fetch()){
-            echo "Ganaste " . $amount . " USD en: " . $description . "\n"; 
-        }
+        require("../resources/views/incomes/index.php");
 
     }
 
     public function create(){
+
+        require("../resources/views/incomes/create.php");
+
     }
 
     public function store($data){
 
-        $stmt = $this->connection->prepare("INSERT INTO withdrawals (payment_method, type, date, amount, description) 
+        $stmt = $this->connection->prepare("INSERT INTO incomes (payment_method, type, date, amount, description) 
         VALUES ( :payment_method, :type, :date, :amount, :description )");
         
         $stmt->bindValue(":payment_method", $data["payment_method"]);
@@ -53,7 +53,10 @@ class IncomesController
         $stmt->bindValue(":amount", $data["amount"]);
         $stmt->bindValue(":description", $data["description"]);
 
-        $stmt->execute($data);
+        $stmt->execute();
+
+        header("location: incomes");
+
     }
 
     public function show($id){

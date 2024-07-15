@@ -1,0 +1,27 @@
+.table-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 450px;
+    width: 100%;
+    flex-direction: column;
+}
+table{
+    border-collapse: collapse;
+    background-color: var(--table-bg);
+    min-height: 100%;
+}
+
+thead th{
+    padding: 15px;
+}
+
+tbody td{
+    padding: 15px;
+    border-top: 1px solid rgb(228, 224, 224);
+}
+
+tbody tr:hover{
+    cursor: pointer;
+    background-color: var(--secundary);
+}
